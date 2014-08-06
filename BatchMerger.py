@@ -4,7 +4,7 @@ import traceback
 
 def mainMenu():
 	self = geneFunctions()
-	print("Welcome to Ewa's Tool, v0.7\nPlease select from the following options:")
+	print("Welcome to the GenBank Mergr Tool\nPlease select from the following options:")
 	for num, s in enumerate(self.options.keys()):
 		print("{}\t{}".format(num+1, s))
 	choice = raw_input("Choose an option (0 to quit): ")
@@ -79,7 +79,7 @@ def getAllFiles():
 
 class geneFunctions():
 	def __init__(self):
-		self.options = {"Batch-merge a folder full of files":'mergeAllFiles', "Make a file with multiple entries (e.g. .gbff) Artemis-compatible":'processMultiFile', "Quit":'exit'}
+		self.options = {"Batch-merges all files in the /raw/ folder and adds a spacer, for viewing in Artemis":'mergeAllFiles', "Make a file with multiple entries (e.g. .gbff) Artemis-compatible":'processMultiFile', "Quit":'exit'}
 		
 	def mergeFiles(self, fileA, fileB):
 		"""This function merges two GenBank formatted files into one, without preserving IDs or descriptions."""
@@ -115,13 +115,12 @@ class geneFunctions():
 			merged_rec += _rec 
 			c+=1
 			
-		merged_rec.id = "mergedseq"
-		merged_rec.description = "merged seq"
+		merged_rec.id = "MergedSeq"
+		merged_rec.description = "GBMergr-merged sequence"
 		name=raw_input("Please enter a filename for the output: ")
 		SeqIO.write(merged_rec, "./output/{}.gbk".format(name), "genbank") 
 		print("Process completed successfully. Result saved as {}.gbp.".format(name))
 		
 if __name__ == "__main__":
 	mainMenu()
-	print("Best of luck in your exams, Ewa. I believe in you. Go get 'em!")
 	raw_input("Press enter key to exit...")
